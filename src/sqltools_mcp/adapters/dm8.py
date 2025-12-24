@@ -200,13 +200,17 @@ class DM8Adapter(DatabaseAdapter):
         try:
             cursor = self._connection.cursor()
             if schema:
-                cursor.execute("""
-                    SELECT TABLE_NAME, TABLE_TYPE
+                # Query with specific schema using Oracle-compatible ALL_TABLES
+                # Using string formatting due to jaydebeapi parameter binding issues
+                safe_schema = schema.upper().replace("'", "''")
+                cursor.execute(f"""
+                    SELECT TABLE_NAME, 'TABLE' AS TABLE_TYPE
                     FROM ALL_TABLES
-                    WHERE OWNER = ?
+                    WHERE OWNER = '{safe_schema}'
                     ORDER BY TABLE_NAME
-                """, (schema.upper(),))
+                """)
             else:
+                # Query current user's tables
                 cursor.execute("""
                     SELECT TABLE_NAME, 'TABLE' AS TABLE_TYPE
                     FROM USER_TABLES
@@ -233,8 +237,13 @@ class DM8Adapter(DatabaseAdapter):
         
         try:
             cursor = self._connection.cursor()
+            # Safe escaping for string formatting
+            safe_table = table_name.upper().replace("'", "''")
+            
             if schema:
-                cursor.execute("""
+                safe_schema = schema.upper().replace("'", "''")
+                # Use Oracle-compatible ALL_TAB_COLUMNS with string formatting
+                cursor.execute(f"""
                     SELECT 
                         c.COLUMN_NAME,
                         c.DATA_TYPE,
@@ -247,14 +256,15 @@ class DM8Adapter(DatabaseAdapter):
                         FROM ALL_CONSTRAINTS cons
                         JOIN ALL_CONS_COLUMNS cols ON cons.CONSTRAINT_NAME = cols.CONSTRAINT_NAME
                         WHERE cons.CONSTRAINT_TYPE = 'P'
-                        AND cons.OWNER = ?
-                        AND cons.TABLE_NAME = ?
+                        AND cons.OWNER = '{safe_schema}'
+                        AND cons.TABLE_NAME = '{safe_table}'
                     ) pk ON c.COLUMN_NAME = pk.COLUMN_NAME
-                    WHERE c.OWNER = ? AND c.TABLE_NAME = ?
+                    WHERE c.OWNER = '{safe_schema}' AND c.TABLE_NAME = '{safe_table}'
                     ORDER BY c.COLUMN_ID
-                """, (schema.upper(), table_name.upper(), schema.upper(), table_name.upper()))
+                """)
             else:
-                cursor.execute("""
+                # Use Oracle-compatible USER_TAB_COLUMNS with string formatting
+                cursor.execute(f"""
                     SELECT 
                         c.COLUMN_NAME,
                         c.DATA_TYPE,
@@ -267,11 +277,11 @@ class DM8Adapter(DatabaseAdapter):
                         FROM USER_CONSTRAINTS cons
                         JOIN USER_CONS_COLUMNS cols ON cons.CONSTRAINT_NAME = cols.CONSTRAINT_NAME
                         WHERE cons.CONSTRAINT_TYPE = 'P'
-                        AND cons.TABLE_NAME = ?
+                        AND cons.TABLE_NAME = '{safe_table}'
                     ) pk ON c.COLUMN_NAME = pk.COLUMN_NAME
-                    WHERE c.TABLE_NAME = ?
+                    WHERE c.TABLE_NAME = '{safe_table}'
                     ORDER BY c.COLUMN_ID
-                """, (table_name.upper(), table_name.upper()))
+                """)
             
             columns = []
             for row in cursor.fetchall():
