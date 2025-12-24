@@ -12,7 +12,7 @@ The following versions of `sqltools-mcp` are currently being supported with secu
 
 Security is a top priority for this project. If you discover a security vulnerability, please do NOT create a public issue. Instead, please follow these steps:
 
-1. **Email the author**: Send an email to [huangzt@example.com](mailto:huangzt@example.com) with the subject "Security Vulnerability".
+1. **Email the author**: Send an email to [huangzt2020@gmail.com](mailto:huangzt2020@gmail.com) with the subject "Security Vulnerability".
 2. **Provide Details**: Include as much information as possible, including:
    - Type of vulnerability.
    - Steps to reproduce it.
