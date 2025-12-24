@@ -83,13 +83,13 @@ class SQLiteAdapter(DatabaseAdapter):
         self._connected = False
         self._db_path = None
     
-    def execute_query(self, sql: str) -> QueryResult:
+    def execute_query(self, sql: str, timeout: int = 30) -> QueryResult:
         """Execute a SQL query."""
         if not self._connected or not self._connection:
             return QueryResult(
                 success=False,
                 error="Not connected to database",
-                message="请先连接数据库"
+                message="Please connect to the database first"
             )
         
         try:
@@ -130,7 +130,7 @@ class SQLiteAdapter(DatabaseAdapter):
                     columns=columns,
                     rows=rows,
                     row_count=len(rows),
-                    message=f"查询成功，返回 {len(rows)} 行"
+                    message=f"Query successful, returned {len(rows)} rows"
                 )
             else:
                 self._connection.commit()
@@ -139,13 +139,13 @@ class SQLiteAdapter(DatabaseAdapter):
                 return QueryResult(
                     success=True,
                     affected_rows=affected,
-                    message=f"执行成功，影响 {affected} 行"
+                    message=f"Execution successful, affected {affected} rows"
                 )
         except sqlite3.Error as e:
             return QueryResult(
                 success=False,
                 error=str(e),
-                message="SQL 执行失败"
+                message="SQL execution failed"
             )
     
     def list_tables(self, schema: str | None = None) -> list[TableInfo]:

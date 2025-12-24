@@ -104,15 +104,15 @@ class DatabaseManager:
         """Get the current database type."""
         return self.adapter.db_type if self.adapter else None
     
-    def execute_query(self, sql: str) -> QueryResult:
+    def execute_query(self, sql: str, timeout: int = 30) -> QueryResult:
         """Execute a SQL query on the current connection."""
         if not self.adapter:
             return QueryResult(
                 success=False,
                 error="No database connection",
-                message="请先使用 connect_database 连接数据库"
+                message="Please connect to a database using connect_database first"
             )
-        return self.adapter.execute_query(sql)
+        return self.adapter.execute_query(sql, timeout=timeout)
     
     def list_tables(self, schema: str | None = None) -> list[TableInfo]:
         """List all tables in the current database."""

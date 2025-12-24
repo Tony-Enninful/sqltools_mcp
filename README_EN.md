@@ -39,15 +39,24 @@ pip install pymssql          # SQL Server
 pip install jaydebeapi       # DM8 (Requires Java/JRE)
 ```
 
+## ⚙️ Configuration Guide
+
+### Environment Variables
+You can set the following environment variables when starting the MCP service for auto-connection:
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `DB_TYPE` | Database type (mysql, postgres, mssql, dm8, sqlite) | `sqlite` |
+| `DB_HOST` | Database host address | `localhost` |
+| `DB_PORT` | Port number (0 uses protocol default) | `0` |
+| `DB_USER` | Database username | - |
+| `DB_PASSWORD` | Database password | - |
+| `DB_NAME` | Database name (Absolute file path for SQLite) | - |
+
 ## 🚀 AI Client Configuration
 
-`sqltools-mcp` is compatible with any AI client that supports the MCP protocol.
-
-### 1. Claude Desktop
-
-Edit your `claude_desktop_config.json`:
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+### 1. Google Antigravity
+Edit `~/.gemini/antigravity/mcp_config.json`:
 
 ```json
 {
@@ -64,43 +73,107 @@ Edit your `claude_desktop_config.json`:
 }
 ```
 
-### 2. Cursor / Windsurf
+### 2. Claude Desktop
+Edit configuration file:
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
-Add a new MCP server in **Settings -> Features -> MCP** (Cursor) or **Settings -> MCP** (Windsurf):
+```json
+{
+  "mcpServers": {
+    "sqltools": {
+      "command": "python",
+      "args": ["-m", "sqltools_mcp.server"],
+      "env": {
+        "DB_TYPE": "mysql",
+        "DB_HOST": "localhost",
+        "DB_USER": "root",
+        "DB_PASSWORD": "password",
+        "DB_NAME": "test"
+      }
+    }
+  }
+}
+```
 
+### 3. Cursor / Windsurf
+Add in **Settings -> Features -> MCP** (Cursor) or **Settings -> MCP** (Windsurf):
 - **Name**: `sqltools`
 - **Type**: `command`
 - **Command**: `python -m sqltools_mcp.server`
 
-*(Note: Ensure the environment or the full path of `python` is correctly specified.)*
-
-### 3. Roo Code (VS Code Extension)
-
-Open Roo Code **Settings**, go to **MCP Servers** -> **Edit Settings**, and add:
+### 4. Roo Code (formerly Roo Cline)
+Open Roo Code settings in VS Code, and add to **MCP Config**:
 
 ```json
 "sqltools": {
   "command": "python",
-  "args": ["-m", "sqltools_mcp.server"],
-  "env": {
-    "DB_TYPE": "mysql",
-    "DB_HOST": "localhost",
-    "DB_USER": "root",
-    "DB_PASSWORD": "password",
-    "DB_NAME": "test"
-  }
+  "args": ["-m", "sqltools_mcp.server"]
+}
+```
+
+### 5. Zed
+Edit `~/.zed/settings.json`:
+
+```json
+{
+  "context_protocols": [
+    {
+      "mcp": {
+        "servers": {
+          "sqltools": {
+            "command": "python",
+            "args": ["-m", "sqltools_mcp.server"]
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+### 6. Continue (VS Code / JetBrains)
+Edit `~/.continue/config.json`:
+
+```json
+{
+  "mcpServers": [
+    {
+      "name": "sqltools",
+      "command": "python",
+      "args": ["-m", "sqltools_mcp.server"]
+    }
+  ]
 }
 ```
 
 ## 🛠️ Tools
 
-AI models can interact with your databases using these English tools:
+AI models can interact with your databases using these tools:
 
-- `connect_database`: Connect/Switch to a database. Supports `dbtype`.
-- `execute_sql`: Run any SQL statement.
-- `list_tables`: Show table names (with limit/offset support).
-- `describe_table`: Get detailed schema/column information.
-- `get_connection_status`: Retrieve current connection info.
+### 1. `connect_database`
+Connect or switch to a target database.
+- **Parameters**: `dbtype` (required), `host`, `port`, `username`, `password`, `dbname`.
+- **Features**: Automatically disconnects old connections and verifies terminal availability.
+
+### 2. `execute_sql`
+Execute SQL queries.
+- **Parameters**: `query` (required), `timeout`.
+- **Features**: Supports SELECT and DML statements; auto-handles data type conversions.
+
+### 3. `list_tables`
+List all tables in the database.
+- **Parameters**: `schema`, `limit` (default 100), `offset` (default 0).
+- **Features**: Supports pagination, returns table types and row count estimates.
+
+### 4. `describe_table`
+Inspect the structure of a specific table.
+- **Parameters**: `table_name` (required), `schema`.
+- **Features**: Returns detailed column info: name, type, nullability, primary key flags, etc.
+
+### 5. `get_connection_status`
+Check the current connection status.
+- **Features**: Returns the current connection protocol and basic config.
 
 ## 🛡️ Security
 

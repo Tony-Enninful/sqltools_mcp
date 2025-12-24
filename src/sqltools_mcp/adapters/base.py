@@ -76,12 +76,13 @@ class DatabaseAdapter(ABC):
         pass
     
     @abstractmethod
-    def execute_query(self, sql: str) -> QueryResult:
+    def execute_query(self, sql: str, timeout: int = 30) -> QueryResult:
         """
         Execute a SQL query.
         
         Args:
             sql: SQL statement to execute
+            timeout: Query timeout in seconds
             
         Returns:
             QueryResult with execution results

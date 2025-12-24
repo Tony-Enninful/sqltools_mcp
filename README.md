@@ -39,15 +39,24 @@ pip install pymssql          # SQL Server
 pip install jaydebeapi       # DM8 (需要 Java 环境)
 ```
 
-## 🚀 AI 开发工具配置
+## ⚙️ 配置指南
 
-`sqltools-mcp` 兼容所有支持 MCP 协议的 AI 客户端。
+### 环境变量
+你可以在启动 MCP 服务时设置以下环境变量来实现自动连接：
 
-### 1. Claude Desktop (官方客户端)
+| 变量名 | 说明 | 默认值 |
+|--------|------|--------|
+| `DB_TYPE` | 数据库类型 (mysql, postgres, mssql, dm8, sqlite) | `sqlite` |
+| `DB_HOST` | 数据库主机地址 | `localhost` |
+| `DB_PORT` | 端口号 (0 则使用各协议默认端口) | `0` |
+| `DB_USER` | 数据库用户名 | - |
+| `DB_PASSWORD` | 数据库密码 | - |
+| `DB_NAME` | 数据库名 (SQLite 为文件绝对路径) | - |
 
-编辑 `claude_desktop_config.json`:
-- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
-- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
+## 🚀 AI 客户端配置
+
+### 1. Google Antigravity
+编辑 `~/.gemini/antigravity/mcp_config.json`:
 
 ```json
 {
@@ -64,45 +73,109 @@ pip install jaydebeapi       # DM8 (需要 Java 环境)
 }
 ```
 
-### 2. Cursor / Windsurf
-
-在 **Settings -> Features -> MCP** (Cursor) 或 **Settings -> MCP** (Windsurf) 中添加：
-
-- **Name**: `sqltools`
-- **Type**: `command`
-- **Command**: `python -m sqltools_mcp.server`
-
-*(注意：请确保 `python` 环境已安装了上述依赖，或者提供 python 的完整路径)*
-
-### 3. Roo Code (VS Code 插件)
-
-点击 Roo Code 面板顶部的 **Settings** 按钮，在 **MCP Servers** -> **Edit Settings** (MCP Config) 中添加：
+### 2. Claude Desktop
+编辑配置文件：
+- **macOS**: `~/Library/Application Support/Claude/claude_desktop_config.json`
+- **Windows**: `%APPDATA%\Claude\claude_desktop_config.json`
 
 ```json
-"sqltools": {
-  "command": "python",
-  "args": ["-m", "sqltools_mcp.server"],
-  "env": {
-    "DB_TYPE": "mysql",
-    "DB_HOST": "localhost",
-    "DB_USER": "root",
-    "DB_PASSWORD": "password",
-    "DB_NAME": "test"
+{
+  "mcpServers": {
+    "sqltools": {
+      "command": "python",
+      "args": ["-m", "sqltools_mcp.server"],
+      "env": {
+        "DB_TYPE": "mysql",
+        "DB_HOST": "localhost",
+        "DB_USER": "root",
+        "DB_PASSWORD": "password",
+        "DB_NAME": "test"
+      }
+    }
   }
 }
 ```
 
-## 🛠️ 工具说明 (Tools)
+### 3. Cursor / Windsurf
+在 **Settings -> Features -> MCP** (Cursor) 或 **Settings -> MCP** (Windsurf) 中添加：
+- **Name**: `sqltools`
+- **Type**: `command`
+- **Command**: `python -m sqltools_mcp.server`
+
+### 4. Roo Code (原 Roo Cline)
+在 VS Code 中打开 Roo Code 设置，在 **MCP Config** 中添加：
+
+```json
+"sqltools": {
+  "command": "python",
+  "args": ["-m", "sqltools_mcp.server"]
+}
+```
+
+### 5. Zed
+编辑 `~/.zed/settings.json`:
+
+```json
+{
+  "context_protocols": [
+    {
+      "mcp": {
+        "servers": {
+          "sqltools": {
+            "command": "python",
+            "args": ["-m", "sqltools_mcp.server"]
+          }
+        }
+      }
+    }
+  ]
+}
+```
+
+### 6. Continue (VS Code / JetBrains)
+编辑 `~/.continue/config.json`:
+
+```json
+{
+  "mcpServers": [
+    {
+      "name": "sqltools",
+      "command": "python",
+      "args": ["-m", "sqltools_mcp.server"]
+    }
+  ]
+}
+```
+
+## 🛠️ 工具详情 (Tools)
 
 AI 模型可以通过以下英文接口与数据库交互：
 
-- `connect_database`: 连接/切换数据库。支持 dbtype (mysql, postgres, etc.)。
-- `execute_sql`: 执行任意 SQL 语句。
-- `list_tables`: 列出表名（支持 limit/offset 分页）。
-- `describe_table`: 查看表结构详情。
-- `get_connection_status`: 获取当前连接状态。
+### 1. `connect_database`
+连接或切换到目标数据库。
+- **参数**: `dbtype` (必填), `host`, `port`, `username`, `password`, `dbname`.
+- **特性**: 自动断开旧连接，验证新连接可用性。
 
-## �️ 安全性
+### 2. `execute_sql`
+执行 SQL 查询。
+- **参数**: `query` (必填), `timeout`.
+- **特性**: 支持 SELECT 和 DML 语句；自动处理数据类型转换。
+
+### 3. `list_tables`
+列出数据库中的所有表。
+- **参数**: `schema`, `limit` (默认 100), `offset` (默认 0).
+- **特性**: 支持分页，返回表类型和行数估计。
+
+### 4. `describe_table`
+查看特定表的结构。
+- **参数**: `table_name` (必填), `schema`.
+- **特性**: 返回详尽的列信息：名称、类型、是否可空、主键标志、默认值等。
+
+### 5. `get_connection_status`
+检查当前连接状态。
+- **特性**: 返回当前连接的协议类型和基本配置（不含密码）。
+
+## 🛡️ 安全性
 
 本项目在 `SECURITY.md` 中详细列出了安全措施，包括表名转义和破坏性操作提醒，确保 AI 在操作数据库时的基本安全性。
 

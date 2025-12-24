@@ -172,7 +172,7 @@ def execute_sql(
         }
     
     try:
-        result = db_manager.execute_query(query)
+        result = db_manager.execute_query(query, timeout=timeout)
         
         return {
             "success": result.success,
